@@ -9,7 +9,7 @@
 
 RTC_DS1307 rtc;
 
-char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+//char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 
 
 /* Este borrador servirá para volver a practicar los elementos básicos de progarmación
@@ -22,13 +22,13 @@ char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursd
 
 //------------------------------Variables
 
-int h_set1 = 14 ; //variable de seteo para hora (Ver variable)
-int m_set1 = 31 ; //variable de seteo para minutos (ver variable)
+int h_set1 = 15 ; //variable de seteo para hora (Ver variable)
+int m_set1 = 15 ; //variable de seteo para minutos (ver variable)
 
 // Segunda Variable asignada, se prueba con una al principio
 
-//int hora_set2 = 12 ; //variable de seteo para hora (Ver variable)
-//int min_set2 = 00 ; //variable de seteo para minutos (ver variable)
+int h_set2 = 15 ; //variable de seteo para hora (Ver variable)
+int m_set2 = 17 ; //variable de seteo para minutos (ver variable)
 
 
 //------------------------------Salidas
@@ -77,7 +77,7 @@ void Dispensar () {
     Serial.print('/');
     Serial.print(now.day(), DEC);
     Serial.print(" (");
-    Serial.print(daysOfTheWeek[now.dayOfTheWeek()]);
+//    Serial.print(daysOfTheWeek[now.dayOfTheWeek()]);
     Serial.print(") ");
     Serial.print(now.hour(), DEC);
     Serial.print(':');
@@ -87,7 +87,7 @@ void Dispensar () {
     Serial.println();
     delay(3000);
 
-      if ((h_set1 == now.hour()) && m_set1 == now.minute())  // si la Hora y los minutos es igual a la del RTC
+      if ((h_set1 == now.hour()) && m_set1 == now.minute()||(h_set2 == now.hour()) && m_set2 == now.minute())   // si la Hora y los minutos es igual a la del RTC
             
             {
             digitalWrite (LED_BUILTIN,HIGH);  // prender el led 13
