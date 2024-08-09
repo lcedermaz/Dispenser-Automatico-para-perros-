@@ -1,0 +1,100 @@
+/ * 
+  *  Borrador para probar el Motor par acoplarlo al code maestro
+  *  Consta de un pulsador y el modulo AD4988
+  */
+   
+#include <Wire.h>;
+#include "RTClib.h";
+
+// Pines para el A4988
+const int dirPin = 2;
+const int stepPin = 3;
+const int enablePin = 4;
+
+// Pines para el LED
+//const int ledPin = 8;
+
+//Entrada pulsador
+const int Pul = 5;
+int value = 0;
+
+//Movimiento del motor, se configura para que de 10 vueltas
+
+const int stepsPerRevolution = 200; // Asumiendo que el motor tiene 200 pasos por revolución
+const int numberOfRevolutions = 10; // Número de vueltas
+const unsigned long stepDelay = 500; // Microsegundos entre pasos
+
+
+//------------------------------SETEO DE TIEMPOS DE REFRESCO (Monitor)
+/*
+unsigned long previousMillis = 0;        
+const long interval = 5000 ;  // Reemplaza el dealy, para que no retrase ningun tiempo tomado por el RTC
+*/
+
+ 
+void setup() {
+  
+  pinMode(LED_BUILTIN, OUTPUT); // Iniciar el LED 13 como salida
+  digitalWrite (LED_BUILTIN,LOW); // Iniciar apagado
+  
+  // Interruptor entrada
+  pinMode(Pul, INPUT);
+
+  // Configuración de pines para el A4988
+  pinMode(dirPin, OUTPUT);
+  pinMode(stepPin, OUTPUT);
+  pinMode(enablePin, OUTPUT);
+  digitalWrite(enablePin, LOW); // Habilitar el driver
+  
+  Serial.begin(57600);
+  Serial.println("Loading");
+} 
+
+void loop()      
+              {
+          
+          value = digitalRead(Pul);  //lectura digital de pin
+
+          if (value == HIGH) {   
+
+          digitalWrite (LED_BUILTIN,HIGH);
+          Motor (); // Mediante esta función obtenemos los datos del RTC (hora, min), Aca se tomara los datos, en base a esto se carga el if para la sentencia
+          }
+          
+          else  // si eso no ocurre, apagar el led
+                  
+                {
+
+            digitalWrite (LED_BUILTIN,LOW);// Apagar el 13
+              
+                }
+          
+          Serial.println("Apagado");
+          delay(1000);
+}
+
+
+//----------- Funcion
+        
+void Motor () {
+
+            Serial.print("DISPENSAR");
+            Serial.println();
+            // Se agrega giro del motor
+        
+        // Mover el motor paso a paso 10 vueltas
+        digitalWrite(dirPin, HIGH); // Establecer dirección
+        
+        for(int x = 0; x < stepsPerRevolution * numberOfRevolutions; x++) {
+            digitalWrite(stepPin, HIGH);
+            delayMicroseconds(stepDelay);
+            digitalWrite(stepPin, LOW);
+            delayMicroseconds(stepDelay);
+        
+            // (1000);
+          }
+}
+
+            
+          
+
