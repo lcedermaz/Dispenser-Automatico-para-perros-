@@ -111,13 +111,13 @@ if(currentMillis_2 - previousMillis >= interval) {
 unsigned long currentMillis_3 = millis();   // T2 
 if(currentMillis_3 - previousMillis1 >= interval1) {   
   previousMillis1 = currentMillis_3; 
-  SerialRTC (); // Se muestra tiempo en serial del RTC
+  SerialRTC (); // tiempo en refresco del RTC
   }
 
 unsigned long currentMillis_4 = millis();   // T3 
 if(currentMillis_4 - previousMillis2 >= interval2) {   
   previousMillis2 = currentMillis_4; 
-  LEDparp(); // Se muestra tiempo en serial del RTC
+  LEDparp(); // Parpadeo del led OK
   }
 
 }
